@@ -120,5 +120,18 @@
     </div>
 
   </div>
+  <audio id="bg-music" src="sounds/music.mp3" loop autoplay></audio>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    audio.volume = 1;
+
+    // browsers block autoplay with sound — try it, and if blocked,
+    // play on first tap anywhere on the screen
+    audio.play().catch(() => {
+      document.addEventListener('click', () => audio.play(), { once: true });
+      document.addEventListener('touchstart', () => audio.play(), { once: true });
+    });
+  </script>
 </body>
 </html>
