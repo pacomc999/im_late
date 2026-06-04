@@ -87,6 +87,27 @@
       text-transform: uppercase;
     }
 
+    .music-btn {
+      background: none;
+      border: 3px solid #ffe600;
+      color: #ffe600;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(14px, 4vw, 20px);
+      font-weight: 900;
+      letter-spacing: 3px;
+      padding: 14px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      text-transform: uppercase;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .music-btn:active {
+      background: #ffe600;
+      color: #0a0a0a;
+    }
+
     .line3 {
       font-size: clamp(24px, 6vw, 48px);
       font-weight: 900;
@@ -119,19 +140,25 @@
       <div class="line3">YOU ARE LOVED.</div>
     </div>
 
+    <button class="music-btn" onclick="toggleMusic(this)">🎵 PLAY SILLY MUSIC</button>
+
   </div>
-  <audio id="bg-music" src="sounds/music.mp3" loop autoplay></audio>
+  <audio id="bg-music" src="sounds/music.mp3" loop></audio>
 
   <script>
     const audio = document.getElementById('bg-music');
     audio.volume = 1;
 
-    // browsers block autoplay with sound — try it, and if blocked,
-    // play on first tap anywhere on the screen
-    audio.play().catch(() => {
-      document.addEventListener('click', () => audio.play(), { once: true });
-      document.addEventListener('touchstart', () => audio.play(), { once: true });
-    });
+    function toggleMusic(btn) {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '🔇 STOP THE MUSIC';
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        btn.textContent = '🎵 PLAY SILLY MUSIC';
+      }
+    }
   </script>
 </body>
 </html>
